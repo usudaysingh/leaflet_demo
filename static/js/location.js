@@ -11,7 +11,6 @@ function onLocationFound(e) {
 
   geocodeService.reverse().latlng(e.latlng).run(function(error, result) {
     map.setView(new L.LatLng(result.latlng.lat, result.latlng.lng), 14);
-    // load_locations(result.latlng.lat, result.latlng.lng)
   });
 }
 
@@ -59,36 +58,13 @@ function add_layer(values)
   
 } //add layer
 
-// function load_locations(latitude, longitude) {
-//     $.ajax({
-//           type: 'GET',
-//           url:'/locate/?lat='+latitude+'&lng='+longitude,
-//           success: function (responseData, textStatus, jqXHR) {
-//               if (responseData.count === 1)
-//               {
-//                 map.setView(new L.LatLng(latitude, longitude), 14);
-//                 values = responseData.results[0].around;
-//                 add_layer(values);
-//               }
-//               else
-//               {
-//                 alert('Sorry we, do not have value for requested coordinates.')
-//               }
-//           },
-//           error: function (jqXHR, errorThrown) {
-//               console.log('Error in loading cities.');
-//           } //error ends
-//     }); //request ends
-// }
-
-
 function load_markers(id)
 {
   $.ajax({
           type: 'GET',
           url:'/locate/?id='+id,
           success: function (responseData, textStatus, jqXHR) {
-              if (responseData.count === 1)
+              if (responseData.count > 0)
               {
                 map.setView(new L.LatLng(responseData.results[0].latitude, responseData.results[0].longitude), 12);
                 values = responseData.results[0].around;
@@ -102,5 +78,22 @@ function load_markers(id)
           error: function (jqXHR, errorThrown) {
               console.log('Error in loading cities.');
           } //error ends
+    }); //request ends
+}
+
+function load_places()
+{
+  $.ajax({
+        type: 'GET',
+        url:'/locate/places',
+        success: function (responseData, textStatus, jqXHR) {
+            responseData.results.unshift({'id':'0','text':'Select Place'});
+            $("#places").select2({
+              data: responseData.results
+            });
+        },
+        error: function (jqXHR, errorThrown) {
+            console.log('Error in loading cities.');
+        } //error ends
     }); //request ends
 }

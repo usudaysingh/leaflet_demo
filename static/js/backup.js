@@ -9,3 +9,25 @@
     // function locate() {
 //   map.locate({setView: true, maxZoom: 16});
 // }
+
+// function load_locations(latitude, longitude) {
+//     $.ajax({
+//           type: 'GET',
+//           url:'/locate/?lat='+latitude+'&lng='+longitude,
+//           success: function (responseData, textStatus, jqXHR) {
+//               if (responseData.count === 1)
+//               {
+//                 map.setView(new L.LatLng(latitude, longitude), 14);
+//                 values = responseData.results[0].around;
+//                 add_layer(values);
+//               }
+//               else
+//               {
+//                 alert('Sorry we, do not have value for requested coordinates.')
+//               }
+//           },
+//           error: function (jqXHR, errorThrown) {
+//               console.log('Error in loading cities.');
+//           } //error ends
+//     }); //request ends
+// }

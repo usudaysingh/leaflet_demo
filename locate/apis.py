@@ -10,7 +10,7 @@ import datetime
 from rest_framework import generics
 from django.http import JsonResponse
 from .models import around_locations, locate
-from .serializers import LocationsSerializer
+from .serializers import LocationsSerializer, PlacesSerializer
 
 
 class LocationsViewSet(generics.ListAPIView):
@@ -27,12 +27,23 @@ class LocationsViewSet(generics.ListAPIView):
         lat = self.request.query_params.get('lat', '')
         lng = self.request.query_params.get('lng','')
         mark_id = self.request.query_params.get('id','')
-        # name = self.request.query_params.get('name','')
 
-        if lat and lng:
-            queryset = queryset.filter(latitude=lat,longitude=lng)
-        
-        if mark_id:
+        if (lat and lng) and mark_id:
             queryset = queryset.filter(id=mark_id)
+        elif lat and lng:
+            queryset = queryset.filter(latitude=lat,longitude=lng)
+        elif mark_id:
+            queryset = queryset.filter(id=mark_id)
+        else:
+            queryset = []
 
         return queryset
+
+class PlacesViewSet(generics.ListAPIView):
+    '''
+    Return List of places
+    '''
+    model = locate
+    serializer_class = PlacesSerializer
+    paginate_by = 10
+    queryset = locate.objects.all()

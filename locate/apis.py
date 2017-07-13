@@ -9,7 +9,7 @@ import datetime
 
 from rest_framework import generics
 from django.http import JsonResponse
-from .models import around_locations, locate
+from .models import locate
 from .serializers import LocationsSerializer, PlacesSerializer
 
 
@@ -35,7 +35,7 @@ class LocationsViewSet(generics.ListAPIView):
         elif mark_id:
             queryset = queryset.filter(id=mark_id)
         else:
-            queryset = []
+            pass
 
         return queryset
 

@@ -11,6 +11,7 @@ function onLocationFound(e) {
 
   geocodeService.reverse().latlng(e.latlng).run(function(error, result) {
     map.setView(new L.LatLng(result.latlng.lat, result.latlng.lng), 14);
+    load_places_with_lat_lng(result.latlng.lat, result.latlng.lng);
   });
 }
 
@@ -22,7 +23,7 @@ function onEachFeature(feature, layer) {
   layer.bindPopup(feature.properties.name).openPopup();;
 }
 
-function add_layer(values)
+function add_layer(current_point, values)
 {
 
   map.removeLayer(my_layer);
@@ -36,6 +37,9 @@ function add_layer(values)
 
   for (var i=0; i<values.length; i++)
   {
+    var new_point = new L.LatLng(values[i].latitude, values[i].longitude);
+    if (new_point.distanceTo(current_point) <= 1000 || current_point.distanceTo(new_point) <= 1000 )
+    {
       feature = {
         "type": "Feature",
         "properties": {
@@ -48,6 +52,7 @@ function add_layer(values)
       }
 
       geo_features.push(feature);
+    }
   }
 
   my_layer = L.geoJSON(features, {
@@ -58,27 +63,80 @@ function add_layer(values)
   
 } //add layer
 
+function get_all_values(current_point)
+{
+  $.ajax({
+          type: 'GET',
+          url:'/locate/',
+          success: function (responseData, textStatus, jqXHR) {
+            values = responseData.results;
+            add_layer(current_point,values);
+          },
+          error: function (jqXHR, errorThrown) {
+              console.log('Error.');
+          } //error ends
+    }); //request ends
+}
+
 function load_markers(id)
 {
   $.ajax({
           type: 'GET',
           url:'/locate/?id='+id,
           success: function (responseData, textStatus, jqXHR) {
-              if (responseData.count > 0)
-              {
-                map.setView(new L.LatLng(responseData.results[0].latitude, responseData.results[0].longitude), 12);
-                values = responseData.results[0].around;
-                add_layer(values);
-              }
-              else
-              {
-                alert('Sorry we, do not have value for requested coordinates.')
-              }
+            if (responseData.count === 0)
+            {
+              alert('Sorry we, do not have value for requested coordinates.');
+              map.removeLayer(my_layer);
+            }
+            else
+            {
+              current_point = new L.LatLng(responseData.results[0].latitude, responseData.results[0].longitude);
+              map.setView(current_point, 12);
+              $('#latitude').val(responseData.results[0].latitude);
+              $('#longitude').val(responseData.results[0].longitude);
+              get_all_values(current_point);
+            }
           },
           error: function (jqXHR, errorThrown) {
-              console.log('Error in loading cities.');
+              console.log('Error');
           } //error ends
     }); //request ends
+}
+
+function load_places_with_lat_lng(lat, lng)
+{
+    $.ajax({
+          type: 'GET',
+          url:'/locate/?lat='+lat+'&lng='+lng,
+          success: function (responseData, textStatus, jqXHR) {
+            console.log(responseData);
+            if (responseData.count === 0)
+            {
+              alert('Sorry we, do not have value for requested coordinates.');
+              map.removeLayer(my_layer);
+            }
+            else
+            {
+              current_point = new L.LatLng(responseData.results[0].latitude, responseData.results[0].longitude);
+              $('#latitude').val(responseData.results[0].latitude);
+              $('#longitude').val(responseData.results[0].longitude);
+              map.setView(current_point, 12);
+              get_all_values(current_point);
+            }
+          },
+          error: function (jqXHR, errorThrown) {
+              console.log('Error');
+          } //error ends
+    }); //request ends
+}
+
+function locate_on_map()
+{
+  var latitude = $('#latitude').val();
+  var longitude = $('#longitude').val();
+
+  load_places_with_lat_lng(latitude, longitude);
 }
 
 function load_places()
@@ -93,7 +151,7 @@ function load_places()
             });
         },
         error: function (jqXHR, errorThrown) {
-            console.log('Error in loading cities.');
+            console.log('Error');
         } //error ends
     }); //request ends
 }

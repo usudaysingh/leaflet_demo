@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		  <title>Locate</title>
+		  {% block js %}
+		  <script type="text/javascript" src="/static/js/jquery.min.js"></script>
+		  <script type="text/javascript" src="/static/js/jquery-collision.min.js"></script>
+		  <script type="text/javascript" src="/static/js/bootstrap3.3.7.min.js"></script>
+		  <script src="/static/js/leaflet-src.js"></script>
+		  <script src="/static/js/esri-leaflet@2.0.7.js"></script>
+		  <script src="/static/js/esri-leaflet-geocoder@2.2.3.js"></script>
+		  <script src="/static/js/leaflet_marker.js"></script>
+		  {% endblock %}
+
+		  {% block css %}
+		  <link rel="stylesheet" href="/static/css/ionicons.min.css">
+		  <link rel="stylesheet" type="text/css" href="/static/css/bootstrap3.3.7.min.css">
+		  <link rel="stylesheet" href="/static/css/esri-leaflet-geocoder.css">
+		  <link rel="stylesheet" href="/static/css/leaflet.css" />
+		  <link rel="stylesheet" href="/static/css/leaflet_marker.css">
+		  {% endblock %}
+	</head>
+	<body>
+		<div style="height:50px;width:100%;">
+			<select onchange="load_markers(this.value)">
+				<option value='1'>RajaPuri</option>
+				<option value='2'>Noida Sec 16</option>
+				<option value='3'>Noida Sec 18</option>
+				<option value='4'>Bangalore</option>
+			</select>
+		</div>
+	  	<div id="map" style="height:800px; width:100%;"></div>
+	</body>
+	<script src="/static/js/location.js"></script>
+</html>  

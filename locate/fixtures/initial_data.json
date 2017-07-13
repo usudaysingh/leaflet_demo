@@ -1,0 +1,166 @@
+[
+{
+    "model": "locate.around_locations",
+    "pk": 1,
+    "fields": {
+        "name": "dwarka",
+        "latitude": "28.5921",
+        "longitude": "77.0460"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 2,
+    "fields": {
+        "name": "Shanti Garden",
+        "latitude": "28.6131273",
+        "longitude": "77.0611713"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 3,
+    "fields": {
+        "name": "Rathi Steels",
+        "latitude": "28.6139056",
+        "longitude": "77.0589738"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 4,
+    "fields": {
+        "name": "Noida City Center",
+        "latitude": "28.5747441",
+        "longitude": "77.3538323"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 5,
+    "fields": {
+        "name": "Noida Sec 18",
+        "latitude": "28.5697094",
+        "longitude": "77.318321"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 6,
+    "fields": {
+        "name": "Mosaic Hotels",
+        "latitude": "28.570798",
+        "longitude": "77.323403"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 7,
+    "fields": {
+        "name": "LIT Ultra Bar and Lounge",
+        "latitude": "28.5705652",
+        "longitude": "77.3252198"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 8,
+    "fields": {
+        "name": "Food Plus",
+        "latitude": "28.5706288",
+        "longitude": "77.3255038"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 9,
+    "fields": {
+        "name": "Naam Dhari Seeds",
+        "latitude": "12.9717062",
+        "longitude": "77.5946319"
+    }
+},
+{
+    "model": "locate.around_locations",
+    "pk": 10,
+    "fields": {
+        "name": "Allen Solly",
+        "latitude": "12.9717062",
+        "longitude": "77.5946319"
+    }
+},
+{
+    "model": "locate.locate",
+    "pk": 1,
+    "fields": {
+        "name": "Raja Puri",
+        "latitude": "28.60624000000007",
+        "longitude": "77.06040000000007",
+        "around": [
+            1,
+            2,
+            3
+        ]
+    }
+},
+{
+    "model": "locate.locate",
+    "pk": 2,
+    "fields": {
+        "name": "Noida Sec 16",
+        "latitude": "28.5785422",
+        "longitude": "77.315268",
+        "around": [
+            4,
+            5,
+            6
+        ]
+    }
+},
+{
+    "model": "locate.locate",
+    "pk": 3,
+    "fields": {
+        "name": "Noida Sec 18",
+        "latitude": "28.5697094",
+        "longitude": "77.318321",
+        "around": [
+            4,
+            6,
+            7,
+            8
+        ]
+    }
+},
+{
+    "model": "locate.locate",
+    "pk": 4,
+    "fields": {
+        "name": "Bangalore",
+        "latitude": "12.9716",
+        "longitude": "77.5946",
+        "around": [
+            9,
+            10
+        ]
+    }
+},
+{
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+        "password": "pbkdf2_sha256$30000$pzAx6yFeCtTo$RVYNuwaGIgpu6c9USf/xjOmOO5/kP1ypklKAJyV7zZE=",
+        "last_login": "2017-07-11T19:03:29Z",
+        "is_superuser": true,
+        "username": "ud",
+        "first_name": "",
+        "last_name": "",
+        "email": "",
+        "is_staff": true,
+        "is_active": true,
+        "date_joined": "2017-07-11T19:03:14Z",
+        "groups": [],
+        "user_permissions": []
+    }
+}
+]

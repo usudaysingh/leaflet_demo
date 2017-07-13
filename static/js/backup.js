@@ -40,3 +40,38 @@
 // });
 
 // var latlng_a = new L.LatLng(0, 0), latlng_b;
+
+// function get_all_values(current_point)
+// {
+//   $.ajax({
+//           type: 'GET',
+//           url:'/locate/',
+//           success: function (responseData, textStatus, jqXHR) {
+//             values = responseData.results;
+//             add_layer(current_point,values);
+//           },
+//           error: function (jqXHR, errorThrown) {
+//               console.log('Error.');
+//           } //error ends
+//     }); //request ends
+// }
+
+// for (var i=0; i<values.length; i++)
+//   {
+//     // var new_point = new L.LatLng(values[i].latitude, values[i].longitude);
+//     // if (new_point.distanceTo(current_point) <= 1000 || current_point.distanceTo(new_point) <= 1000 )
+//     // {
+//       feature = {
+//         "type": "Feature",
+//         "properties": {
+//             "name": values[i].name
+//         },
+//         "geometry": {
+//             "type": "Point",
+//             "coordinates": [values[i].longitude, values[i].latitude]
+//         }
+//       }
+
+//       geo_features.push(feature);
+//     // }
+//   }

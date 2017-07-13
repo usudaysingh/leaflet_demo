@@ -6,6 +6,7 @@
 
 import json
 import datetime
+from math import sin, cos, radians, degrees, acos
 
 from rest_framework import generics
 from django.http import JsonResponse
@@ -21,6 +22,26 @@ class LocationsViewSet(generics.ListAPIView):
     serializer_class = LocationsSerializer
     paginate_by = 10
 
+    def check_distance(self, lat_a, long_a):
+
+        filtered_results = []
+
+        queryset = locate.objects.all()
+
+        lat_a = radians(float(lat_a))
+        long_a = float(long_a)
+
+        for query in queryset:
+            lat_b = radians(float(query.latitude))
+            long_diff = radians(long_a-float(query.longitude))
+            distance = degrees(acos((sin(lat_a) * sin(lat_b) + cos(lat_a) * cos(lat_b) * cos(long_diff)))) * 69.09
+
+            if distance < 0.621371:
+                filtered_results.append(query)
+        return filtered_results
+
+
+
     def get_queryset(self):
         queryset = self.model.objects.all()
 
@@ -30,10 +51,14 @@ class LocationsViewSet(generics.ListAPIView):
 
         if (lat and lng) and mark_id:
             queryset = queryset.filter(id=mark_id)
+            if queryset:
+                queryset = self.check_distance(queryset[0].latitude, queryset[0].longitude)
         elif lat and lng:
-            queryset = queryset.filter(latitude=lat,longitude=lng)
+            queryset = self.check_distance(lat,lng)
         elif mark_id:
             queryset = queryset.filter(id=mark_id)
+            if queryset:
+                queryset = self.check_distance(queryset[0].latitude, queryset[0].longitude)
         else:
             pass
 

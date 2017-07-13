@@ -23,7 +23,7 @@ function onEachFeature(feature, layer) {
   layer.bindPopup(feature.properties.name).openPopup();;
 }
 
-function add_layer(current_point, values)
+function add_layer(values)
 {
 
   map.removeLayer(my_layer);
@@ -37,9 +37,9 @@ function add_layer(current_point, values)
 
   for (var i=0; i<values.length; i++)
   {
-    var new_point = new L.LatLng(values[i].latitude, values[i].longitude);
-    if (new_point.distanceTo(current_point) <= 1000 || current_point.distanceTo(new_point) <= 1000 )
-    {
+    // var new_point = new L.LatLng(values[i].latitude, values[i].longitude);
+    // if (new_point.distanceTo(current_point) <= 1000 || current_point.distanceTo(new_point) <= 1000 )
+    // {
       feature = {
         "type": "Feature",
         "properties": {
@@ -52,7 +52,7 @@ function add_layer(current_point, values)
       }
 
       geo_features.push(feature);
-    }
+    // }
   }
 
   my_layer = L.geoJSON(features, {
@@ -62,21 +62,6 @@ function add_layer(current_point, values)
   my_layer.addTo(map);
   
 } //add layer
-
-function get_all_values(current_point)
-{
-  $.ajax({
-          type: 'GET',
-          url:'/locate/',
-          success: function (responseData, textStatus, jqXHR) {
-            values = responseData.results;
-            add_layer(current_point,values);
-          },
-          error: function (jqXHR, errorThrown) {
-              console.log('Error.');
-          } //error ends
-    }); //request ends
-}
 
 function load_markers(id)
 {
@@ -95,7 +80,8 @@ function load_markers(id)
               map.setView(current_point, 12);
               $('#latitude').val(responseData.results[0].latitude);
               $('#longitude').val(responseData.results[0].longitude);
-              get_all_values(current_point);
+              // get_all_values(responseData.results);
+              add_layer(responseData.results);
             }
           },
           error: function (jqXHR, errorThrown) {
@@ -122,7 +108,8 @@ function load_places_with_lat_lng(lat, lng)
               $('#latitude').val(responseData.results[0].latitude);
               $('#longitude').val(responseData.results[0].longitude);
               map.setView(current_point, 12);
-              get_all_values(current_point);
+              add_layer(responseData.results);
+              // get_all_values(current_point);
             }
           },
           error: function (jqXHR, errorThrown) {

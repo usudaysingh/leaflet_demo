@@ -1,0 +1,25 @@
+{% extends 'index.html' %}
+{% block content %}
+	{% if success %}
+	<h3 style="color:green">{{success}}<h3>
+	{% endif %}
+
+	{% if error %}
+	<h3 style="color:red">{{error}}</h3>
+	{% endif %}
+	<form method="POST">{% csrf_token %}
+		<label>Name</label>
+		<input type="text" name="name" placeholder="Please enter name" required />
+		<br>
+		<label>Google Display Name</label>
+		<input type="text" placeholder="Please enter google name" name="google_map_name" />
+		<br>
+		<label>Latitude</label>
+		<input type="number" step="0.01" placeholder="Please enter Latitude" name="latitude" required />
+		<br>
+		<label>Longitude</label>
+		<input ttype="number" step="0.01" placeholder="Please enter Longitude" name="longitude" required />
+		<br>
+		<input type="submit" value="Add" />
+	</form>
+{% endblock %}

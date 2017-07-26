@@ -132,9 +132,9 @@ function load_places()
         type: 'GET',
         url:'/locate/places',
         success: function (responseData, textStatus, jqXHR) {
-            responseData.results.unshift({'id':'0','text':'Select Place'});
+            responseData.unshift({'id':'0','text':'Select Place'});
             $("#places").select2({
-              data: responseData.results
+              data: responseData
             });
         },
         error: function (jqXHR, errorThrown) {

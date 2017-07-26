@@ -15,16 +15,11 @@ Including another URLconf
 """
 from django.conf.urls import url,  include
 from django.contrib import admin
-from django.shortcuts import render_to_response
-from django.template import RequestContext
-
-def plot_map(request):
-	if request.method == 'GET':
-		template = 'index.html'
-		return render_to_response(template)
+from .views import login_view, logout_user
 
 urlpatterns = [
+    url(r'^login/', login_view, name="login"),
+    url(r'^logout/', logout_user, name="logout"),
     url(r'^admin/', admin.site.urls),
-    url(r'^index/', plot_map, name='leaflet_map'),
-    url(r'^locate/', include('locate.urls', namespace='locate')),
+    url(r'^locate/', include('locate.urls')),
 ]

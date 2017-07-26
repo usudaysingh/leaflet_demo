@@ -70,5 +70,5 @@ class PlacesViewSet(generics.ListAPIView):
     '''
     model = locate
     serializer_class = PlacesSerializer
-    paginate_by = 10
     queryset = locate.objects.all()
+    pagination_class = None

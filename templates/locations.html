@@ -1,0 +1,23 @@
+{% extends 'index.html' %}
+{% block content %}
+<form method="POST">
+	{% csrf_token %}
+	<input type="text" name="search" value='{{search_value}}' required />
+	<input type="submit" value="Search" placeholder="Search Name"/>
+</form>
+
+<table class="table table-striped">
+	<tr>
+		<th>Name</th>
+		<th>Latitude</th>
+		<th>Longitude</th>
+	</tr>
+	{% for point in points %}
+	<tr>
+		<td>{{point.name}}</td>
+		<td>{{point.latitude}}</td>
+		<td>{{point.longitude}}</td>
+	<tr>
+	{% endfor %}
+</table>
+{% endblock %}

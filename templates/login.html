@@ -1,0 +1,16 @@
+<html>
+<head>
+	<title>Locate Login</title>
+</head>
+<body>
+	{% if error %}
+		<h1 style="color:red;">{{error}}</h1>
+	{% endif %}
+	<form method="post" action='/login/' id="login_form">
+		{% csrf_token %}
+		<input type="text" name='username' placeholder="Enter User Name" required />
+		<input type="password" name="password" placeholder="Enter Password" required />
+		<input type="submit" value="Login" />
+	</form>
+</body>
+</html>

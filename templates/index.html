@@ -23,17 +23,22 @@
 		  {% endblock %}
 	</head>
 	<body>
-		<div class="col-lg-12 col-sm-12 col-md-12" style="height:40px;">
-				<div class="col-md-3 col-lg-3 col-sm-3 form-group"><select id="places" onchange="load_markers(this.value)" class="form-control"></select></div>
-				<div class="col-md-3 col-lg-3 col-sm-3 form-group"><input type="text" class="form-control" id="latitude" placeholder='Enter Latitude' /></div>
-				<div class="col-md-3 col-lg-3 col-sm-3 form-group"><input type="text" class="form-control" id="longitude" placeholder='Enter Longitude' /></div>
-				<div class="col-md-3 col-lg-3 col-sm-3 form-group"><input type="button" class="btn btn-primary" onclick="locate_on_map()" value="Locate"/></div>		
-		</div>
-	  	<div id="map" style="height:800px; width:100%;"></div>
+		<nav class="navbar navbar-default">
+		  <div class="container-fluid">
+		    <div class="navbar-header">
+		      <a class="navbar-brand" href="/locate/map/">Locate</a>
+		    </div>
+		    <ul class="nav navbar-nav">
+		      <li><a href="/locate/map/">Map</a></li>
+		      <li><a href="/locate/locations">Locations</a></li>
+		      <li><a href="/locate/add_location">Add Location</a></li>
+		    </ul>
+		    <ul class="pull-right">
+		    	<li><a href="/logout">{{user.username}} - {{user.user_type}} - Logout</a></li>
+		    </ul>
+		  </div>
+		</nav>
+		{% block content %}
+		{% endblock %}
 	</body>
-	<script src="/static/js/location.js"></script>
-	<script type="text/javascript">
-	$("#places").select2({});
-	load_places();
-	</script>
 </html>  
